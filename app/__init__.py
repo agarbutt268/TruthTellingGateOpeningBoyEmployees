@@ -15,10 +15,13 @@ def home():
 def login():
     if 'user_id' in session:
         return redirect(url_for('home'))
-    
 
-    
     return render_template('login.html')
+
+@app.route('/mutuals')
+def mutuals():
+
+    return render_template('mutuals.html', friends = ["jd", "adele", "emerson", "aden"])
 
 if __name__ == '__main__':
     app.debug = True

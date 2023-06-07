@@ -1,6 +1,6 @@
 TruthTellingGateOpeningBoyEmployees
 Aden Garbutt
-Emerson Gelobter 
+Emerson Gelobter
 Jonathan Song
 Verit Li
 pd 7
@@ -22,18 +22,27 @@ veritL -- 2023-06-02 12:28
 --------------------------------------------------------------
 Added initial design doc.
 ==============================================================
+
 veritL -- 2023-06-05 09:50
 --------------------------------------------------------------
 Design Doc feedback:
 - No wow factor
 - No task list
 ==============================================================
+
 veritL -- 2023-06-06 13:02
 --------------------------------------------------------------
 Added basic login functions to dp.py
 ==============================================================
+
 veritL -- 2023-06-06 13:18
 --------------------------------------------------------------
 Added basic functions to populate database
 Exploring python datetime module
+==============================================================
+
+AdenG -- 2023-06-07 09:56
+--------------------------------------------------------------
+- Getting data from backend to frontend
+- Exploring python datetime module
 ==============================================================
