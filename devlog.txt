@@ -44,10 +44,11 @@ Exploring python datetime module
 AdenG -- 2023-06-07 09:56
 --------------------------------------------------------------
 - Getting data from backend to frontend
-- Exploring python datetime module
+- login and register functionality
 ==============================================================
 
-JonathanS -- 2023-06-07 13:15
+AdenG -- 2023-06-12 10:21
 --------------------------------------------------------------
-- Looked through possible messaging APIs that allowed back-and-forth communication without SMS
+- Friends list on Home page
+- Messages Page
 ==============================================================

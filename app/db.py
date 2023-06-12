@@ -78,6 +78,7 @@ def get_user_password(username):
 
     return dict[2]
 
+
 def get_user_id(username):
     db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
     c = db.cursor() #creates db cursor to execute and fetch
@@ -88,6 +89,7 @@ def get_user_id(username):
     db.close()
 
     return dict[0]
+
 
 def add_friend_pair(friend_0_id, friend_1_id):
     db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
@@ -122,6 +124,3 @@ def log_message(pair_id, message):
     c.execute("INSERT INTO messages VALUES(?,?,?,?,?)", data)
     db.commit()
     db.close()
-
-
-print(type(datetime.now()))
