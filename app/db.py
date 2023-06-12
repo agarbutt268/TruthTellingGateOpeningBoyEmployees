@@ -97,7 +97,7 @@ def add_friend_pair(friend_0_id, friend_1_id):
 
     c.execute("SELECT COUNT(pair_id) FROM friends")
 
-    pair_id = c.fetchone()
+    pair_id = c.fetchone()[0]
 
     data = (pair_id, friend_0_id, friend_1_id)
 
@@ -117,10 +117,35 @@ def log_message(pair_id, message):
 
     c.execute("SELECT COUNT(sequence_id) FROM friends")
 
-    sequence_id = c.fetchone()
+    sequence_id = c.fetchone()[0]
 
     data = (date, time, sequence_id, pair_id, message)
 
     c.execute("INSERT INTO messages VALUES(?,?,?,?,?)", data)
     db.commit()
     db.close()
+
+#returns list of friend_user_ids for given user_id
+def get_all_friends(user_id):
+    db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
+    c = db.cursor() #creates db cursor to execute and fetch
+    friends = []
+    
+    c.execute("SELECT friend_1_id FROM friends WHERE friend_0_id=?", user_id)
+    temp = c.fetchall()
+    
+    for item in temp:
+        friends.append(item[0])
+
+    c.execute("SELECT friend_0_id FROM users WHERE friend_1_id=?", user_id)
+    temp = c.fetchall()
+    
+    for item in temp:
+        friends.append(item[0])
+
+    return friends
+
+
+
+    
+    
