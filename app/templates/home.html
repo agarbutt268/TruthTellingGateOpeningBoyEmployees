@@ -50,11 +50,39 @@
         <!-- PAST PREDICTIONS MENU --->
         <div class="col-3" style="border-right: 2px black solid">
           <h3> Friends </h3>
+
+          {% for x in friends %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"> {{x[0]}} </div>
+            </div>
+          </li>
+          {% endfor %}
         </div>
+
+
 
         <!-- MAIN PAGE --->
         <div class="col-9">
-          <h1> Feed </h1>
+          <h1> Messages </h1>
+
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+            <h4 id="scrollspyHeading1">First heading</h4>
+            <p>...</p>
+            <h4 id="scrollspyHeading2">Second heading</h4>
+            <p>...</p>
+            <h4 id="scrollspyHeading3">Third heading</h4>
+            <p>...</p>
+            <h4 id="scrollspyHeading4">Fourth heading</h4>
+            <p>...</p>
+            <h4 id="scrollspyHeading5">Fifth heading</h4>
+            <p>...</p>
+          </div>
+
+          <form class="container-sm my-5" action="/register" method="post" id="signup">
+
+            <input type="text" class="form-control" placeholder="Type your message here" aria-label="Username">            
+          </form>
 
         </div>
 
