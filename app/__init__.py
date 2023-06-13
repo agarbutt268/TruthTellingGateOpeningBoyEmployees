@@ -66,6 +66,9 @@ def register():
 def mutuals():
 
     user_id = int(db.get_user_id(session['username']))
+    x = db.select_all_users()
+    print(x)
+    print(x[0][0])
 
     if request.method == 'POST':
         friend_username = request.form['add_friend']
@@ -76,8 +79,9 @@ def mutuals():
 
     f = db.get_all_friends(user_id)
     print(f)
+    
 
-    return render_template('mutuals.html', username = session['username'], friends = f, new_friends = nf)
+    return render_template('mutuals.html', username = session['username'], friends = f, new_friends = nf, users = x)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
