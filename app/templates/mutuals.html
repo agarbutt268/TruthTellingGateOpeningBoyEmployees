@@ -76,9 +76,9 @@
             <a class="nav-link disabled"> Add Friends </a>
           </li>
           <div class="typeahead">
-            <form action="/searchBar">
-              <input type="search" class="form-control rounded typeahead" data-provide="typeahead" name="selectedName" placeholder="Search for friends" aria-label="Search" aria-describedby="search-addon" />
-              <button type="submit" style="margin-right: 870px;" action="/friends" class="btn btn-outline-primary">add friend</button>
+            <form action="/friends" method = "post">
+              <input type="search" class="form-control rounded typeahead" data-provide="typeahead" name="add_friend" placeholder="Search for friends" aria-label="Search" aria-describedby="search-addon" />
+              <button type="submit" style="margin-right: 870px;" name = "add_friend" class="btn btn-outline-primary">add friend</button>
             </form>
           </div>
         </ul>
