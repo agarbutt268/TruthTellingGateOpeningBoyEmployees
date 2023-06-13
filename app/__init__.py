@@ -62,16 +62,22 @@ def register():
 
 
 
-@app.route('/mutuals')
+@app.route('/friends', methods=['GET', 'POST'])
 def mutuals():
 
-    return render_template('mutuals.html', friends = ["jd", "adele", "emerson", "aden"])
+    user_id = int(db.get_user_id(session['username']))
 
+    if request.method == 'POST':
+        friend_username = request.form['add_friend']
+        friend_user_id = int(db.get_user_id(friend_username))
+        db.add_friend_pair(user_id, friend_user_id)
 
-@app.route('/friends')
-def friends():
+    nf = db.select_all_users()
 
-    return render_template('mutuals.html', friends = ["jd", "adele", "emerson", "aden"])
+    f = db.get_all_friends(user_id)
+    print(f)
+
+    return render_template('mutuals.html', username = session['username'], friends = f, new_friends = nf)
 
 
 @app.route('/logout', methods=['GET', 'POST'])

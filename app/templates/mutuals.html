@@ -26,14 +26,13 @@
           <button type="button" class="btn btn-dark mx-1" id="darkMode">Dark</button>
 
           <!--- user profile button --->
-          <div class="dropdown mx-1" id="loggedIn" style="display: none">
+          <div class="dropdown mx-1" id="loggedIn">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" value="{{Username}}">
-              {{Username}}
+              {{username}}
             </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Mutual Friends</a></li>
-              <li><a class="dropdown-item" href="#">Messages</a></li>
+              <li><a class="dropdown-item" href="/friends">Mutual Friends</a></li>
               <li><a class="dropdown-item" href="/logout">Logout</a></li>
             </ul>
           </div>
@@ -45,20 +44,73 @@
 
     <h1 class="d-flex justify-content-center"> Mutual Friends </h1>
 
+    <div class="card text-center">
 
-    <ol class="list-group list-group-flush">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+          <li class="nav-item">
+            <a class="nav-link active" href="#"> Friends </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"> Mutuals </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled"> Add Friends </a>
+          </li>
+        </ul>
+      </div>
 
-      {% for x in friends %}
-      <li class="list-group-item d-flex justify-content-between align-items-start">
-        <div class="ms-2 me-auto">
-          <div class="fw-bold"> {{x}} </div>
-          who they're connected to youy by
-        </div>
-        <span class="badge bg-primary rounded-pill">14</span>
-      </li>
-      {% endfor %}
+      <div class="card-body">
+        <ol class="list-group list-group-flush">
 
-    </ol>
+          {% for x in new_friends %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"> {{x[0]}} </div>
+            </div>
+            <form action="/friends" method='post'>
+              <button type="submit" class="btn btn-primary btn-sm" name="add_friend" value="{{x[0]}}"> Add Friended </button>
+            </form>
+          </li>
+          {% endfor %}
+
+        </ol>
+      </div>
+
+      <div class="card-body">
+        <ol class="list-group list-group-flush">
+
+          {% for x in friends %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"> {{x}} </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" value="{{x}}"> Add Friend </button>
+          </li>
+          {% endfor %}
+
+        </ol>
+      </div>
+
+      <div class="card-body" style="display: none">
+        <ol class="list-group list-group-flush">
+
+          {% for x in new_friends %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"> {{x[0]}} </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" value="{{x}}"> Add Friend </button>
+          </li>
+          {% endfor %}
+
+        </ol>
+      </div>
+
+    </div>
+
+
+
 
 
     <div class="d-flex justify-content-center">

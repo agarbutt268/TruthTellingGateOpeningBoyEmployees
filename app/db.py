@@ -125,27 +125,23 @@ def log_message(pair_id, message):
     db.commit()
     db.close()
 
+
 #returns list of friend_user_ids for given user_id
 def get_all_friends(user_id):
     db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
     c = db.cursor() #creates db cursor to execute and fetch
     friends = []
-    
-    c.execute("SELECT friend_1_id FROM friends WHERE friend_0_id=?", user_id)
+
+    c.execute("SELECT friend_1_id FROM friends WHERE friend_0_id=?", (user_id,))
     temp = c.fetchall()
-    
+
     for item in temp:
         friends.append(item[0])
 
-    c.execute("SELECT friend_0_id FROM users WHERE friend_1_id=?", user_id)
+    c.execute("SELECT friend_0_id FROM friends WHERE friend_1_id=?", (user_id,))
     temp = c.fetchall()
-    
+
     for item in temp:
         friends.append(item[0])
 
     return friends
-
-
-
-    
-    
