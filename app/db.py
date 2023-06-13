@@ -15,7 +15,7 @@ def reset_database():
 
     c.execute("CREATE TABLE IF NOT EXISTS users(user_id INTEGER, username STRING, password STRING, phone_number STRING, email STRING, bio STRING);")
     c.execute("CREATE TABLE IF NOT EXISTS friends(pair_id INTEGER, friend_0_id INTEGER, friend_1_id INTEGER);")
-    c.execute("CREATE TABLE IF NOT EXISTS messages(date STRING, time STRING, sequence_id INTEGER, pair_id INTEGER, message STRING);")
+    c.execute("CREATE TABLE IF NOT EXISTS messages(date STRING, time STRING, sequence_id INTEGER, pair_id INTEGER, sender_user_id INTEGER, message STRING);")
 
     db.commit()
     db.close()
@@ -116,24 +116,16 @@ def add_friend_pair(friend_0_id, friend_1_id):
     db.commit()
     db.close()
 
-
-def log_message(pair_id, message):
-    timestamp = datetime.now()
-    date = None
-    time = None
+def get_pair_id(friend_id_0, friend_id_1):
 
     db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
     c = db.cursor() #creates db cursor to execute and fetch
 
-    c.execute("SELECT COUNT(sequence_id) FROM friends")
+    c.execute("SELECT pair_id FROM friends WHERE (friend_0_id=? AND friend_1_id=?) OR (friend_0_id=? AND friend_1_id=?)", (friend_id_0, friend_id_1, friend_id_1, friend_id_0,))
 
-    sequence_id = c.fetchone()[0]
+    pair_id = c.fetchone()[0]
 
-    data = (date, time, sequence_id, pair_id, message)
-
-    c.execute("INSERT INTO messages VALUES(?,?,?,?,?)", data)
-    db.commit()
-    db.close()
+    return pair_id
 
 
 #returns list of friend_user_ids for given user_id
@@ -155,3 +147,42 @@ def get_all_friends(user_id):
         friends.append(item[0])
 
     return friends
+
+
+def log_message(pair_id, sender_user_id, message):
+    timestamp = datetime.now()
+    date = None
+    time = None
+
+    db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
+    c = db.cursor() #creates db cursor to execute and fetch
+
+    c.execute("SELECT COUNT(sequence_id) FROM messages WHERE pair_id=?", (pair_id,))
+
+    sequence_id = c.fetchone()[0]
+
+    data = (date, time, sequence_id, pair_id, sender_user_id, message)
+
+    c.execute("INSERT INTO messages VALUES(?,?,?,?,?,?)", data)
+    db.commit()
+    db.close()
+
+
+def get_all_messages(pair_id):
+    db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
+    c = db.cursor() #creates db cursor to execute and fetch
+
+    c.execute("SELECT * FROM messages WHERE pair_id=?", (pair_id,))
+    all_messages = c.fetchall()
+
+    return all_messages
+
+
+'''
+reset_database()
+add_friend_pair(0,1)
+print(get_pair_id(0,1))
+print(get_pair_id(0,1))
+print(get_all_friends(0))
+print(get_all_friends(1))
+'''
