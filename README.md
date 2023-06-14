@@ -18,5 +18,9 @@ Jonathan Song
 1. Install packages  
 `pip install -r requirements.txt`  
 1. cd into app directory  
-`cd ./app`  
+`cd ./app`
+1. Start Flask server  
+`python __init__.py`
+1. View site  
+Go to http://127.0.0.1:5000/ in browser 
 
