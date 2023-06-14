@@ -13,7 +13,7 @@ Jonathan Song
 `. TruthTellingenv/bin/activate`  
 1. Clone repository  
 `git clone git@github.com:agarbutt268/p05_TruthTellingGateOpeningBoyEmployees.git`
-1. cd into repo
+1. cd into repo  
 `cd ./p05_TruthTellingGateOpeningBoyEmployees`
 1. Install packages  
 `pip install -r requirements.txt`  
