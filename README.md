@@ -12,7 +12,7 @@ Jonathan Song
 1. activate virtual environment  
 `. TruthTellingenv/bin/activate`  
 1. Clone repository  
-`git clone git@github.com:leriivt/p4-aTriceratopy.git`
+`git clone git@github.com:agarbutt268/p05_TruthTellingGateOpeningBoyEmployees.git`
 1. cd into repo
 `cd ./p05_TruthTellingGateOpeningBoyEmployees`
 1. Install packages  
