@@ -1,7 +1,7 @@
 # Friend Finder by TruthTellingGateOpeningBoyEmployees
 ## Roster:
 Aden Garbutt  
-Verit Li  (database)
+Verit Li  (database)  
 Emerson Gelobter  
 Jonathan Song  
 ## Description:  
