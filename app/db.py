@@ -124,9 +124,10 @@ def get_pair_id(friend_id_0, friend_id_1):
     c = db.cursor() #creates db cursor to execute and fetch
 
     c.execute("SELECT pair_id FROM friends WHERE (friend_0_id=? AND friend_1_id=?) OR (friend_0_id=? AND friend_1_id=?)", (friend_id_0, friend_id_1, friend_id_1, friend_id_0,))
-
+    
     pair_id = c.fetchone()[0]
 
+    db.close()
     return pair_id
 
 
@@ -148,6 +149,7 @@ def get_all_friends(user_id):
     for item in temp:
         friends.append(item[0])
 
+    db.close()
     return friends
 
 
@@ -176,6 +178,7 @@ def get_all_messages(pair_id):
 
     c.execute("SELECT * FROM messages WHERE pair_id=?", (pair_id,))
     all_messages = c.fetchall()
+    db.close()
 
     return all_messages
 
@@ -193,6 +196,7 @@ def get_incoming_friend_requests(user_id):
 
     c.execute("SELECT sender_id FROM friend_requests WHERE receiver_id=?", (user_id,))
     temp = c.fetchall()
+    db.close()
 
     incoming = []
 
@@ -207,6 +211,7 @@ def get_outgoing_friend_requests(user_id):
 
     c.execute("SELECT receiver_id FROM friend_requests WHERE sender_id=?", (user_id,))
     temp = c.fetchall()
+    db.close()
 
     outgoing = []
     
@@ -214,6 +219,16 @@ def get_outgoing_friend_requests(user_id):
         outgoing.append(item[0])
 
     return outgoing
+
+def accept_friend_request(sender_id, receiver_id):
+    db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
+    c = db.cursor() #creates db cursor to execute and fetch
+
+    c.execute("DELETE FROM friend_requests WHERE sender_id=? AND receiver_id=?", (sender_id, receiver_id,))
+
+    db.commit()
+    db.close()
+    
 '''
 reset_database()
 add_friend_pair(0,1)
@@ -227,4 +242,6 @@ print(get_all_friends(0))
 print(get_all_friends(1))
 print(get_incoming_friend_requests(1))
 print(get_outgoing_friend_requests(1))
+accept_friend_request(0, 1)
+print(get_incoming_friend_requests(1))
 '''
