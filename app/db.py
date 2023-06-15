@@ -12,10 +12,12 @@ def reset_database():
     c.execute("DROP TABLE IF EXISTS users;")
     c.execute("DROP TABLE IF EXISTS friends;")
     c.execute("DROP TABLE IF EXISTS messages;")
+    c.execute("DROP TABLE IF EXISTS friend_requests;")
 
     c.execute("CREATE TABLE IF NOT EXISTS users(user_id INTEGER, username STRING, password STRING, phone_number STRING, email STRING, bio STRING);")
     c.execute("CREATE TABLE IF NOT EXISTS friends(pair_id INTEGER, friend_0_id INTEGER, friend_1_id INTEGER);")
     c.execute("CREATE TABLE IF NOT EXISTS messages(date STRING, time STRING, sequence_id INTEGER, pair_id INTEGER, sender_user_id INTEGER, message STRING);")
+    c.execute("CREATE TABLE IF NOT EXISTS friend_requests(sender_id INTEGER, receiver_id INTEGER);")
 
     db.commit()
     db.close()
@@ -177,12 +179,52 @@ def get_all_messages(pair_id):
 
     return all_messages
 
+def add_friend_request(sender_id, receiver_id):
+    db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
+    c = db.cursor() #creates db cursor to execute and fetch
 
+    c.execute("INSERT INTO friend_requests VALUES(?,?)", (sender_id, receiver_id,))
+    db.commit()
+    db.close()
+
+def get_incoming_friend_requests(user_id):
+    db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
+    c = db.cursor() #creates db cursor to execute and fetch
+
+    c.execute("SELECT sender_id FROM friend_requests WHERE receiver_id=?", (user_id,))
+    temp = c.fetchall()
+
+    incoming = []
+
+    for item in temp:
+        incoming.append(item[0])
+
+    return incoming
+
+def get_outgoing_friend_requests(user_id):
+    db = sqlite3.connect(DB_FILE) #open if file exists, if not it will create a new db
+    c = db.cursor() #creates db cursor to execute and fetch
+
+    c.execute("SELECT receiver_id FROM friend_requests WHERE sender_id=?", (user_id,))
+    temp = c.fetchall()
+
+    outgoing = []
+    
+    for item in temp:
+        outgoing.append(item[0])
+
+    return outgoing
 '''
 reset_database()
 add_friend_pair(0,1)
+add_friend_request(0,1)
+add_friend_request(2,1)
+add_friend_request(1,4)
+add_friend_request(1,3)
 print(get_pair_id(0,1))
 print(get_pair_id(0,1))
 print(get_all_friends(0))
 print(get_all_friends(1))
+print(get_incoming_friend_requests(1))
+print(get_outgoing_friend_requests(1))
 '''
