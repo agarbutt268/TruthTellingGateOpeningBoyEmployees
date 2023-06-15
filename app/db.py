@@ -228,7 +228,9 @@ def accept_friend_request(sender_id, receiver_id):
 
     db.commit()
     db.close()
-    
+
+    add_friend_pair(sender_id, receiver_id)
+
 '''
 reset_database()
 add_friend_pair(0,1)
